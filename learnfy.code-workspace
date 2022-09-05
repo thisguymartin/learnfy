@@ -7,6 +7,7 @@
 	"settings": {
 		"editor.formatOnSave": true,
 		"editor.formatOnPaste": true,
-		"editor.formatOnSaveMode": "file"
+		"editor.formatOnSaveMode": "file",
+		"csharpextensions.privateMemberPrefix": "_"
 	}
 }
