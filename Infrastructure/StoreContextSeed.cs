@@ -4,30 +4,30 @@ using Entity;
 
 namespace Infrastructure
 {
-  public class StoreContextSeed
-  {
-    public static async Task SeedAsync(StoreContext context, ILogger logger)
+    public class StoreContextSeed
     {
-      try
-      {
-        if (!context.Courses.Any())
+        public static async Task SeedAsync(StoreContext context, ILogger logger)
         {
-          var courseData = File.ReadAllText("../Infrastructure/SeedData/courses.json");
-          var courses = JsonSerializer.Deserialize<List<Course>>(courseData);
+            try
+            {
+                if (!context.Courses.Any())
+                {
+                    var courseData = File.ReadAllText("../Infrastructure/SeedData/courses.json");
+                    var courses = JsonSerializer.Deserialize<List<Course>>(courseData);
 
-          foreach (var course in courses)
-          {
-            context.Courses.Add(course);
-          }
+                    foreach (var course in courses)
+                    {
+                        context.Courses.Add(course);
+                    }
 
-          await context.SaveChangesAsync();
+                    await context.SaveChangesAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.Message);
+                throw;
+            }
         }
-      }
-      catch (Exception ex)
-      {
-        logger.LogError(ex.Message);
-        throw;
-      }
     }
-  }
 }
