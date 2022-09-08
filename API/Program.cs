@@ -35,14 +35,16 @@ app.MapControllers();
 using var scope = app.Services.CreateScope();
 var servicesScopeProvider = scope.ServiceProvider;
 
+var logger = servicesScopeProvider.GetRequiredService<ILogger<Program>>();
+
 try
 {
     var context = servicesScopeProvider.GetRequiredService<StoreContext>();
     context.Database.Migrate();
+    await StoreContextSeed.SeedAsync(context, logger);
 }
 catch (Exception ex)
 {
-    var logger = servicesScopeProvider.GetRequiredService<ILogger<Program>>();
     logger.LogError(ex, "Something happened during migration");
 
     throw;
