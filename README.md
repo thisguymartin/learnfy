@@ -14,6 +14,12 @@ dotnet build
 dotnet format
 ```
 
+## Run Project
+
+```bash
+dotnet run
+```
+
 ## Entity database migration
 
 ```bash
@@ -22,3 +28,13 @@ dotnet ef migrations add [name of migration] -p [Name of project where migration
 ## example: dotnet ef migrations add firstMigration -p Infrastructure -s API
 
 ```
+
+## Project Structure
+
+- Web Api
+  - Is our main project with all business logic and controller.
+- Entity
+  - We store all our model properties and interfaces.
+- Infrastructure
+  - Taking care of our database related methods, such as store context such as database creation.
+  - Database migrations
