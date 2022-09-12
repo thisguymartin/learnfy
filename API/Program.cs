@@ -13,18 +13,31 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<StoreContext>(x =>
 {
-    x.UseSqlite(builder.Configuration["ConnectionStrings:DefaultConnection"]);
+  x.UseSqlite(builder.Configuration["ConnectionStrings:DefaultConnection"]);
 });
 
+builder.Services.AddCors(opt =>
+{
+  opt.AddPolicy("CorsPolicy", policy =>
+              {
+                policy.AllowAnyHeader().AllowAnyMethod()
+                  .WithOrigins("http://localhost:3000");
+              });
+});
+
+
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseDeveloperExceptionPage();
-    app.UseSwagger();
-    app.UseSwaggerUI();
+  app.UseDeveloperExceptionPage();
+  app.UseSwagger();
+  app.UseSwaggerUI();
 }
+
+app.UseCors("CorsPolicy");
 
 app.UseHttpsRedirection();
 
@@ -39,16 +52,18 @@ var logger = servicesScopeProvider.GetRequiredService<ILogger<Program>>();
 
 try
 {
-    var context = servicesScopeProvider.GetRequiredService<StoreContext>();
-    context.Database.Migrate();
-    await StoreContextSeed.SeedAsync(context, logger);
+  var context = servicesScopeProvider.GetRequiredService<StoreContext>();
+  context.Database.Migrate();
+  await StoreContextSeed.SeedAsync(context, logger);
 }
 catch (Exception ex)
 {
-    logger.LogError(ex, "Something happened during migration");
+  logger.LogError(ex, "Something happened during migration");
 
-    throw;
+  throw;
 }
+
+
 
 
 app.Run();
