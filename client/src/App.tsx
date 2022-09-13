@@ -1,5 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import logo from './logo.svg';
+import {
+  Routes,
+  Route,
+} from "react-router-dom";
+
+import Homepage from './pages/HomePage'
+import LoginPage from './pages/Login'
+import DetailPage from './pages/DetailPage'
+
+
 import './App.css';
 import axios from 'axios';
 
@@ -15,35 +23,13 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <ul>
-        {courses.map((course: any, index) => {
-          return (
-            <li key={index}>
-              
-              <div>
-              <img src={course.image} height="80px"></img>
 
+    <Routes>
+      <Route path="/login"><LoginPage /></Route>
+      <Route path="/detail"><DetailPage /></Route>
+      <Route path="/"><Homepage /></Route>
+    </Routes>
 
-            </div>
-              <p>{course.title}</p>
-
-            </li>
-          );
-        })}
-      </ul>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
   );
 }
 
