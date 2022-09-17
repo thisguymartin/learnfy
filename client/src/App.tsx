@@ -1,5 +1,5 @@
 import {
-  Routes,
+  Switch,
   Route,
 } from "react-router-dom";
 
@@ -8,28 +8,19 @@ import LoginPage from './pages/Login'
 import DetailPage from './pages/DetailPage'
 
 
-import './App.css';
-import axios from 'axios';
+import './sass/main.scss';
+import Navigation from "./components/Navigation";
 
 function App() {
-  const [courses, setCourses] = useState([]);
-
-  
-  useEffect(() => {
-    axios.get('http://localhost:5288/api/Courses').then((response) => {
-      console.log(response);
-      setCourses(response.data);
-    });
-  }, []);
-
   return (
-
-    <Routes>
-      <Route path="/login"><LoginPage /></Route>
-      <Route path="/detail"><DetailPage /></Route>
-      <Route path="/"><Homepage /></Route>
-    </Routes>
-
+    <>
+      <Navigation />
+      <Switch>
+        <Route exact path="/" component={Homepage} />
+        <Route exact path="/login" component={LoginPage} />
+        <Route exact path="/detail" component={DetailPage} />
+      </Switch>
+    </>
   );
 }
 

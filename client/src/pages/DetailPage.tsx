@@ -1,4 +1,5 @@
-export default function DetailPage() {
-  
-  return <div><h1>Login Page</h1></div>
-}
+const DetailPage = () => {
+  return <h1>Detail Page</h1>;
+};
+
+export default DetailPage;
