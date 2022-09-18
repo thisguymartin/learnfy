@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 import { Course } from '../models/course';
 
-axios.defaults.baseURL = 'http://localhost:5000/api';
+axios.defaults.baseURL = 'http://localhost:5288/api';
 
 const responseBody = <T>(response: AxiosResponse<T>) => response.data;
 

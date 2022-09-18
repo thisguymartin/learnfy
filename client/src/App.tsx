@@ -9,6 +9,8 @@ import DetailPage from './pages/DetailPage'
 
 
 import './sass/main.scss';
+import 'antd/dist/antd.css';
+
 import Navigation from "./components/Navigation";
 
 function App() {
